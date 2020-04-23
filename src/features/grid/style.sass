@@ -2,3 +2,17 @@
   border: 1px solid grey
   overflow: hidden
   margin: 0 auto
+  position: relative
+
+.play-item
+  position: absolute
+  border: 1px solid red
+  z-index: 5
+  display: flex
+  align-items: center
+  justify-content: center
+  &__selected
+    border-radius: 50%
+    height: 4px
+    width: 4px
+    background: red

@@ -1,6 +1,13 @@
 import { h, spec, list } from 'effector-dom'
-import { $columns, $rows, sizeNode } from '../../models/grid'
+import {
+	$columns,
+	$rows,
+	sizeNode,
+	$grid,
+	changeGridItem,
+} from '../../models/grid'
 import './style.sass'
+import { sample, createEvent } from 'effector'
 
 export const grid = () => {
 	h('div', () => {
@@ -9,17 +16,18 @@ export const grid = () => {
 				class: 'grid',
 			},
 			style: {
-				width: $columns.map(x => `${x * sizeNode}px`),
-				height: $rows.map(x => `${x * sizeNode}px`),
+				height: $rows.map(x => `${(x + 1) * sizeNode}px`),
+				width: $columns.map(x => `${(x + 1) * sizeNode}px`),
 			},
 		})
-		rows()
+		h('div', createRowsAndColumns)
+		h('div', createPlayItems)
 	})
 }
 
-const rows = () => {
+const createRowsAndColumns = () => {
 	list(
-		$rows.map(length => Array.from({ length }, (_, i) => i)),
+		$rows.map(length => Array.from({ length: length + 1 }, (_, i) => i)),
 		({ index }) => {
 			h('div', () => {
 				spec({
@@ -30,25 +38,57 @@ const rows = () => {
 						display: 'flex',
 					},
 				})
-				columns()
+				list(
+					$columns.map(length =>
+						Array.from({ length: length + 1 }, (_, i) => i)
+					),
+					({ index }) => {
+						h('div', () => {
+							spec({
+								style: {
+									borderLeft: index > 0 && '1px solid grey',
+									height: '100%',
+									width: `${sizeNode}px`,
+								},
+							})
+						})
+					}
+				)
 			})
 		}
 	)
 }
 
-const columns = () => {
-	list(
-		$columns.map(length => Array.from({ length }, (_, i) => i)),
-		({ index }) => {
+const createPlayItems = () => {
+	list($grid, ({ index: rowIndex, store }) => {
+		list(store, ({ index: columnIndex, store: $item }) => {
 			h('div', () => {
+				const click = createEvent()
+				sample({
+					source: $item,
+					clock: click,
+					target: changeGridItem,
+				})
+
 				spec({
+					attr: { class: 'play-item' },
 					style: {
-						borderLeft: index > 0 && '1px solid grey',
-						height: '100%',
 						width: `${sizeNode}px`,
+						height: `${sizeNode}px`,
+						top: `${sizeNode * rowIndex + sizeNode / 2}px`,
+						left: `${sizeNode * columnIndex + sizeNode / 2}px`,
+					},
+					handler: {
+						click,
 					},
 				})
+				h('div', () => {
+					spec({
+						visible: $item.map(x => x.active),
+						attr: { class: 'play-item__selected' },
+					})
+				})
 			})
-		}
-	)
+		})
+	})
 }
