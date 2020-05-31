@@ -63,10 +63,10 @@ const createPlayItems = () => {
 	list($grid, ({ key: rowIndex, store: $row }) => {
 		list($row, ({ key: columnIndex, store: $item }) => {
 			const click = createEvent<MouseEvent>()
+
 			sample({
 				source: $item,
 				clock: click,
-				fn: s => s.id,
 				target: changeGridItem,
 			})
 			h('div', () => {
