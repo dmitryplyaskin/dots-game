@@ -1,7 +1,7 @@
 import { createStore, combine, createEvent } from 'effector'
 
-const $columns = createStore(70)
-const $rows = createStore(35)
+const $columns = createStore(10)
+const $rows = createStore(10)
 const sizeNode = 18
 
 const changeGridItem = createEvent<string>()
@@ -22,7 +22,6 @@ $grid.on(changeGridItem, (state, id) => {
 	const [row, col] = id.split('-')
 	arr[row][col] = {
 		id,
-		// player,
 		active: true,
 	}
 	return arr
