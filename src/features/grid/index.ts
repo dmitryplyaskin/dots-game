@@ -1,4 +1,4 @@
-import { h, spec, list } from 'effector-dom'
+import { h, spec, list } from 'forest'
 import {
 	$columns,
 	$rows,
@@ -28,11 +28,11 @@ export const grid = () => {
 const createRowsAndColumns = () => {
 	list(
 		$rows.map(length => Array.from({ length: length + 1 }, (_, i) => i)),
-		({ index }) => {
+		({ key }) => {
 			h('div', () => {
 				spec({
 					style: {
-						borderTop: index > 0 && '1px solid grey',
+						borderTop: key.map(x => (x > 0 && '1px solid grey') || ''),
 						width: '100%',
 						height: `${sizeNode}px`,
 						display: 'flex',
@@ -42,11 +42,11 @@ const createRowsAndColumns = () => {
 					$columns.map(length =>
 						Array.from({ length: length + 1 }, (_, i) => i)
 					),
-					({ index }) => {
+					({ key }) => {
 						h('div', () => {
 							spec({
 								style: {
-									borderLeft: index > 0 && '1px solid grey',
+									borderLeft: key.map(x => (x > 0 && '1px solid grey') || ''),
 									height: '100%',
 									width: `${sizeNode}px`,
 								},
@@ -60,23 +60,23 @@ const createRowsAndColumns = () => {
 }
 
 const createPlayItems = () => {
-	list($grid, ({ index: rowIndex, store }) => {
-		list(store, ({ index: columnIndex, store: $item }) => {
+	list($grid, ({ key: rowIndex, store: $row }) => {
+		list($row, ({ key: columnIndex, store: $item }) => {
+			const click = createEvent<MouseEvent>()
+			sample({
+				source: $item,
+				clock: click,
+				fn: s => s.id,
+				target: changeGridItem,
+			})
 			h('div', () => {
-				const click = createEvent()
-				sample({
-					source: $item,
-					clock: click,
-					target: changeGridItem,
-				})
-
 				spec({
 					attr: { class: 'play-item' },
 					style: {
 						width: `${sizeNode}px`,
 						height: `${sizeNode}px`,
-						top: `${sizeNode * rowIndex + sizeNode / 2}px`,
-						left: `${sizeNode * columnIndex + sizeNode / 2}px`,
+						top: rowIndex.map(x => `${sizeNode * x + sizeNode / 2}px`),
+						left: columnIndex.map(x => `${sizeNode * x + sizeNode / 2}px`),
 					},
 					handler: {
 						click,

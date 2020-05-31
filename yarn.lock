@@ -2827,10 +2827,10 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-effector-dom@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/effector-dom/-/effector-dom-0.0.15.tgz#42992f0e2cd8e4d0d3f9384253281706b5486dc5"
-  integrity sha512-smr9IvxIEezINFsYNlRmIMbNQ5HRUihioLukC39dn1WyX6CXxjuTSv1X4VNeMlnROpvjEAKqq+GdB+vQq3O6oA==
+effector-dom@0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/effector-dom/-/effector-dom-0.0.14.tgz#aff694afafc9713233db37c81d576df536e14d61"
+  integrity sha512-t2xSg/bL9C4UgRbOYfR7chJ8uuLlFcbbwLRM3jO5g7WjxxIVVpaVjUyXHrhbkR8ODFpJgr1hIj6Jlrm2pP9XTw==
 
 effector@^20.14.0:
   version "20.14.0"
@@ -3296,6 +3296,11 @@ for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
+
+forest@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/forest/-/forest-0.16.1.tgz#84b8ce8b23b618eb2347d46ca755b2be6ffaafe6"
+  integrity sha512-4H2wCzZ/qDfc1Q33xISKGCmFYupaY2PCMWwoGVt9+/oN9BZrVV7HRZ6VJz/cPucuWJFPU1DbO/1Qe1yCt8WApw==
 
 forever-agent@~0.6.1:
   version "0.6.1"

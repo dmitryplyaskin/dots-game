@@ -18,6 +18,7 @@
 	},
 	"dependencies": {
 		"effector": "^20.14.0",
-		"effector-dom": "^0.0.15"
+		"effector-dom": "0.0.14",
+		"forest": "^0.16.1"
 	}
 }

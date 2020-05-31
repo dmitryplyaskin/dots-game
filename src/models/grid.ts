@@ -4,7 +4,7 @@ const $columns = createStore(70)
 const $rows = createStore(35)
 const sizeNode = 18
 
-const changeGridItem = createEvent<{ id: string; player: string }>()
+const changeGridItem = createEvent<string>()
 const $grid = combine({ col: $columns, row: $rows }, ({ col, row }) =>
 	Array.from({ length: row }).map((_, rowIndex) =>
 		Array.from({ length: col }).map((_, colIndex) => ({
@@ -15,17 +15,17 @@ const $grid = combine({ col: $columns, row: $rows }, ({ col, row }) =>
 	)
 )
 
-$grid.on(changeGridItem, (state, { id, player }) => {
+changeGridItem.watch(console.log)
+
+$grid.on(changeGridItem, (state, id) => {
 	const arr = Array.from(state)
 	const [row, col] = id.split('-')
 	arr[row][col] = {
 		id,
-		player,
+		// player,
 		active: true,
 	}
 	return arr
 })
-
-// $grid.watch(console.log)
 
 export { $rows, $columns, sizeNode, changeGridItem, $grid }
